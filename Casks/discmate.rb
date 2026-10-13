@@ -8,7 +8,7 @@ cask "discmate" do
   homepage "https://github.com/loprx/discmate"
 
   depends_on arch: :arm64
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   app "DiscMate.app"
 
