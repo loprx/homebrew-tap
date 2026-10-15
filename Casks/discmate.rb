@@ -1,6 +1,6 @@
 cask "discmate" do
-  version "0.3.6"
-  sha256 "619c0fe5812a7194eafb728d104c917692a41efd286055a91ca3f507abd0cff4"
+  version "0.3.7"
+  sha256 "a3303da9813818c142a8c7ce1e7697c220faa2372cff757a6e7249c05ecee77c"
 
   url "https://github.com/loprx/discmate/releases/download/v#{version}/DiscMate-v#{version}-macos-arm64.zip"
   name "DiscMate"
