@@ -4,13 +4,23 @@ cask "logoer" do
 
   url "https://github.com/loprx/Logoer/releases/download/#{version}/Logoer-v#{version}-macos-arm64.zip"
   name "Logoer"
-  desc "Replace the Apple logo in the macOS menu bar with a custom image"
+  desc "Replace the Apple logo in the menu bar with a custom image"
   homepage "https://github.com/loprx/Logoer"
 
   depends_on arch: :arm64
-  depends_on macos: :big_sur
+  depends_on :macos
 
   app "Logoer.app"
+
+  # The bundle is ad-hoc signed and not notarized, so Gatekeeper rejects the
+  # quarantined copy. Logoer is an LSUIElement menu-bar app: when Gatekeeper
+  # blocks it there is no Dock icon and no window to explain why, and `open`
+  # fails with error -128 without showing a dialog. Dropping the quarantine
+  # flag keeps the install usable (Homebrew 7 no longer has `quarantine false`
+  # or `--no-quarantine`).
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{appdir}}/Logoer.app"]
+  end
 
   zap trash: [
     "~/Library/Containers/com.lihaoyun6.Logoer",
@@ -18,10 +28,10 @@ cask "logoer" do
   ]
 
   caveats <<~EOS
-    Logoer is ad hoc signed and has not been notarized by Apple.
-    If macOS blocks its first launch and you trust this build, open
-    System Settings > Privacy & Security and choose Open Anyway for Logoer.
-    See https://support.apple.com/102445
+    Logoer is ad hoc signed and has not been notarized by Apple. The install
+    removes the quarantine flag so it can launch; if you later re-download the
+    zip by hand, clear it yourself with:
+      xattr -dr com.apple.quarantine /Applications/Logoer.app
 
     Auto-Mask (turned on automatically for non-Apple logo styles) needs the
     Screen Recording permission to read the menu bar colour.
