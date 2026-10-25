@@ -1,6 +1,6 @@
 cask "logoer" do
-  version "0.3.0"
-  sha256 "8b4fe35592b7f19b65d476d386c1ec522fee0f86305cee73af8f4b1e98c7386d"
+  version "0.3.1"
+  sha256 "ebb274b4aa22de4c7f95b936f20fc77c39306921ea33371255635d6bc7a83179"
 
   url "https://github.com/loprx/Logoer/releases/download/#{version}/Logoer-v#{version}-macos-arm64.zip"
   name "Logoer"
